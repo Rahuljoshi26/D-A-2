@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100];
+    int length = 0, i, j, count, freq = 0;
+    char *ptr;
+    char *repeat_ptr = NULL;
+    char *non_repeat_ptr = NULL;
+    printf("Enter a string: ");
+    fgets(str, 100, stdin);
+    ptr = str;
+    while (*ptr != '\0') {
+        length++;
+        ptr++;
+    }
+    printf("Length of the string is: %d\n", length - 1);
+    ptr = str;
+    while (*ptr != '\0') {
+        if (*ptr == ' ' || *ptr == '\n') {
+            freq++;
+        }
+        ptr++;
+    }
+    printf("Word frequency is: %d\n", freq + 1);
+    ptr = str;
+    for (i = 0; i < length; i++) {
+        count = 0;
+        for (j = i + 1; j < length; j++) {
+            if (str[i] == str[j]) {
+                if (count == 0) {
+                    repeat_ptr = &str[i];
+                }
+                count++;
+            }
+        }
+        if (count == 0 && non_repeat_ptr == NULL) {
+            non_repeat_ptr = &str[i];
+        }
+    }
+
+    if (repeat_ptr != NULL) {
+        printf("First repeated character is: %c\n", *repeat_ptr);
+    } else {
+        printf("No repeated characters found in the string.\n");
+    }
+
+    if (non_repeat_ptr != NULL) {
+        printf("First non-repeated character is: %c\n", *non_repeat_ptr);
+    } else {
+        printf("No non-repeated characters found in the string.\n");
+    }
+
+    return 0;
+}
